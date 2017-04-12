@@ -146,6 +146,8 @@ function Metric(namespace, units, defaultDimensions, options) {
  * Publish stored metrics now
  */
 Metric.prototype.flush = function() {
+  clearInterval(this._interval);
+  this._interval = null;
   this._sendMetrics();
 };
 

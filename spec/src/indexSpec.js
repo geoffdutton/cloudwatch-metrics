@@ -219,6 +219,7 @@ describe('cloudwatch-metrics', function() {
 
       metric.put(1, 'metricName');
       metric.flush();
+      expect(metric._interval).toBe(null);
       expect(cwPut).toHaveBeenCalledWith({
         MetricData: [{
           MetricName: 'metricName',
