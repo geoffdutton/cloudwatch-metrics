@@ -64,6 +64,12 @@
  * });
  * ```
  *
+ * Or if you'd like to send currently stored metics now, use `flush`:
+ *
+ * ```
+ * myMetric.flush();
+ * ```
+ *
  * You can also register a callback to be called when we actually send metrics
  * to CloudWatch - this can be useful for logging put-metric-data errors:
  * ```
@@ -137,10 +143,17 @@ function Metric(namespace, units, defaultDimensions, options) {
 }
 
 /**
+ * Publish stored metrics now
+ */
+Metric.prototype.flush = function() {
+  this._sendMetrics();
+};
+
+/**
  * Publish this data to Cloudwatch
  * @param {Integer|Long} value          Data point to submit
- * @param {String} namespace            Name of the metric
- * @param {Array} additionalDimensions  Array of additional CloudWatch metric dimensions. See
+ * @param {String} metricName            Name of the metric
+ * @param {Array} [additionalDimensions]  Array of additional CloudWatch metric dimensions. See
  * http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Dimension.html for details.
  */
 Metric.prototype.put = function(value, metricName, additionalDimensions) {
@@ -171,7 +184,7 @@ Metric.prototype.put = function(value, metricName, additionalDimensions) {
  * Samples a metric so that we send the metric to Cloudwatch at the given
  * sampleRate.
  * @param {Integer|Long} value          Data point to submit
- * @param {String} namespace            Name of the metric
+ * @param {String} metricName           Name of the metric
  * @param {Array} additionalDimensions  Array of additional CloudWatch metric dimensions. See
  * http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Dimension.html for details.
  * @param  {Float} sampleRate           The rate at which to sample the metric at.

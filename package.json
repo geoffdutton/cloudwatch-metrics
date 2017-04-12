@@ -4,7 +4,8 @@
   "description": "A simple wrapper for simplifying using Cloudwatch metrics",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jest --coverage",
+    "lint": "jshint"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,12 @@
   },
   "devDependencies": {
     "jasmine": "^2.5.2",
+    "jest": "^19.0.2",
+    "jest-cli": "^19.0.2",
     "rewire": "^2.5.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/spec/**/*.js?(x)", "**/?(*.)(Spec|test).js?(x)"]
   }
 }
